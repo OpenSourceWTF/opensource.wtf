@@ -1,0 +1,23 @@
+# opensource.wtf
+
+> Open source tools for the AI agent ecosystem.
+
+## About
+
+OpenSourceWTF builds open source developer tools focused on AI agents, automation, and modern workflows. Everything is open source with no premium tiers.
+
+## Projects
+
+- [Capybara](https://github.com/OpenSourceWTF/capybara): AI-powered agent framework for building agents that reason, plan, and execute complex tasks.
+- [WAAAH](https://github.com/OpenSourceWTF/WAAAH): Workflow automation system for orchestrating AI agents. Define tasks, manage state, let agents handle the rest.
+- [Dojo](https://github.com/OpenSourceWTF/dojo): Skill registry and distribution system for AI coding agents. Learn, share, and reuse skills.
+
+## Links
+
+- Website: https://opensource.wtf
+- GitHub: https://github.com/OpenSourceWTF
+- Blog: https://opensource.wtf/blog
+
+## Blog Posts
+
+- [Hello, World!](https://opensource.wtf/content/blog/hello-world.md): Introducing Opensource.wtf — our new home for open source projects.

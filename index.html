@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Opensource.wtf - Open source tools for the AI agent ecosystem. Building developer tools in the open." />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Opensource.wtf" />
+    <meta property="og:description" content="Open source tools for the AI agent ecosystem" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://opensource.wtf" />
+    <meta property="og:image" content="https://opensource.wtf/logo.png" />
+
+    <!-- AI/Agent discoverability -->
+    <link rel="llms" href="/llms.txt" type="text/plain" />
+
+    <title>Opensource.wtf</title>
+
+    <!-- Structured Data for AI/Agent consumption -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "OpenSourceWTF",
+      "url": "https://opensource.wtf",
+      "logo": "https://opensource.wtf/logo.png",
+      "description": "Building open source tools for the AI agent ecosystem",
+      "sameAs": [
+        "https://github.com/OpenSourceWTF"
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
