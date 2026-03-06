@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { projects } from "../content/projects";
 import { postIndex as posts } from "../content/posts";
+import Head from "../components/Head";
 
 export default function Home() {
   return (
     <>
+      <Head />
       {/* Hero */}
       <section className="py-24 md:py-32">
         <div className="max-w-6xl mx-auto px-6">

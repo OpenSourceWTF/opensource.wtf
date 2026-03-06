@@ -43,3 +43,16 @@ coverage/
 
 # Vite
 *.local
+
+# Auto-generated content (built from blog repo)
+src/content/posts.generated.ts
+public/content/blog/
+public/rss.xml
+public/sitemap.xml
+public/llms.txt
+
+# Blog repo checkout (local dev)
+blog-content/
+
+# TypeScript build info
+tsconfig.tsbuildinfo

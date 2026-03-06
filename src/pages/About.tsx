@@ -1,6 +1,13 @@
+import Head from "../components/Head";
+
 export default function About() {
   return (
     <section className="py-16">
+      <Head
+        title="About"
+        description="About OpenSourceWTF — building open source tools for the AI agent ecosystem."
+        path="/about"
+      />
       <div className="max-w-3xl mx-auto px-6">
         <h1 className="text-3xl font-bold mb-6">About</h1>
 

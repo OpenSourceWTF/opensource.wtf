@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchPost, type BlogPost } from "../content/posts";
+import Head from "../components/Head";
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -40,6 +41,12 @@ export default function BlogPostPage() {
 
   return (
     <article className="py-16" aria-label={post.title}>
+      <Head
+        title={post.title}
+        description={post.excerpt}
+        path={`/blog/${post.slug}`}
+        type="article"
+      />
       <div className="max-w-3xl mx-auto px-6">
         <Link
           to="/blog"

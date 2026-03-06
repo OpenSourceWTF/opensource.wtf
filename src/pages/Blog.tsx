@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import { postIndex } from "../content/posts";
+import Head from "../components/Head";
 
 export default function Blog() {
   return (
     <section className="py-16">
+      <Head
+        title="Blog"
+        description="Thoughts on open source, AI agents, and building in the open."
+        path="/blog"
+      />
       <div className="max-w-3xl mx-auto px-6">
         <h1 className="text-3xl font-bold mb-2">Blog</h1>
         <p className="text-text-secondary mb-10">

@@ -4,8 +4,9 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "content": "tsx scripts/build-content.ts",
+    "dev": "pnpm content && vite",
+    "build": "pnpm content && tsc -b && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
     "tailwindcss": "^4.2.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"
   },
