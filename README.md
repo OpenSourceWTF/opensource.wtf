@@ -55,7 +55,7 @@ pnpm preview   # preview the built site locally
 
 ## Deployment
 
-Deployed to **GitHub Pages** via GitHub Actions.
+Deployed to **GitHub Pages** via GitHub Actions (chosen for zero hosting cost).
 
 ### How it works
 

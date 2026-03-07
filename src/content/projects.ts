@@ -9,24 +9,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: "Capybara",
-    tagline: "AI-powered agent framework",
-    description:
-      "A flexible framework for building AI agents that can reason, plan, and execute complex tasks. Designed for composability and extensibility.",
-    logo: "/capybara-logo.svg",
-    repo: "https://github.com/OpenSourceWTF/capybara",
-    tags: ["AI", "Agents", "TypeScript"],
-  },
-  {
-    name: "WAAAH",
-    tagline: "Workflow automation for AI agents",
-    description:
-      "An opinionated workflow system for orchestrating AI agents. Define tasks, manage state, and let agents handle the rest.",
-    logo: "/waaah-logo.svg",
-    repo: "https://github.com/OpenSourceWTF/WAAAH",
-    tags: ["Automation", "AI", "Workflows"],
-  },
-  {
     name: "Dojo",
     tagline: "Skill registry for AI coding agents",
     description:
@@ -34,5 +16,14 @@ export const projects: Project[] = [
     logo: "/dojo-logo.svg",
     repo: "https://github.com/OpenSourceWTF/dojo",
     tags: ["Skills", "Registry", "AI"],
+  },
+  {
+    name: "Huddle",
+    tagline: "Multi-agent orchestration framework",
+    description:
+      "Coordinate multiple AI agents working together on complex tasks. Define agent roles, communication patterns, and shared context.",
+    logo: "/huddle-logo.svg",
+    repo: "https://github.com/OpenSourceWTF/huddle",
+    tags: ["Agents", "Orchestration", "TypeScript"],
   },
 ];

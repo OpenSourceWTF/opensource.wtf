@@ -18,7 +18,10 @@ export async function fetchPost(slug: string): Promise<BlogPost | null> {
 
     // Strip frontmatter
     const fmMatch = raw.match(/^---\n[\s\S]*?\n---\n([\s\S]*)$/);
-    const body = fmMatch ? fmMatch[1].trim() : raw;
+    let body = fmMatch ? fmMatch[1].trim() : raw;
+
+    // Strip leading h1 — we render post.title separately
+    body = body.replace(/^# .+\n*/, "");
 
     const meta = postIndex.find((p) => p.slug === slug);
     if (!meta) return null;

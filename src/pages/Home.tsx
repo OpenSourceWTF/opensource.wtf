@@ -10,34 +10,37 @@ export default function Home() {
       {/* Hero */}
       <section className="py-24 md:py-32">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-4 mb-8">
-              <img src="/logo-light.svg" alt="" className="h-16 w-16" />
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
+                The best software is{" "}
+                <span className="text-brand">open source</span>
+              </h1>
+              <p className="text-lg md:text-xl text-text-secondary leading-relaxed mb-8">
+                Building things in the open, writing about it, and the domain
+                was just there.
+              </p>
+              <div className="flex gap-4">
+                <Link
+                  to="/projects"
+                  className="inline-flex items-center px-6 py-3 bg-brand text-white font-medium rounded-lg hover:bg-brand-dark transition-colors"
+                >
+                  Projects
+                </Link>
+                <Link
+                  to="/blog"
+                  className="inline-flex items-center px-6 py-3 border border-border text-text-primary font-medium rounded-lg hover:bg-surface-raised transition-colors"
+                >
+                  Blog
+                </Link>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
-              Open source that makes you say{" "}
-              <span className="text-brand">WTF</span>
-            </h1>
-            <p className="text-lg md:text-xl text-text-secondary leading-relaxed mb-8">
-              We build tools for developers working with AI agents, automation,
-              and modern workflows. Everything is open source because the best
-              software is built in the open.
-            </p>
-            <div className="flex gap-4">
-              <Link
-                to="/projects"
-                className="inline-flex items-center px-6 py-3 bg-brand text-white font-medium rounded-lg hover:bg-brand-dark transition-colors"
-              >
-                View Projects
-              </Link>
-              <a
-                href="https://github.com/OpenSourceWTF"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-3 border border-border text-text-primary font-medium rounded-lg hover:bg-surface-raised transition-colors"
-              >
-                GitHub
-              </a>
+            <div className="flex justify-center">
+              <img
+                src="/logo-light.svg"
+                alt="OSWTF"
+                className="w-full max-w-sm"
+              />
             </div>
           </div>
         </div>
