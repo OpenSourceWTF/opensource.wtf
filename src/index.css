@@ -120,6 +120,32 @@ body {
   margin-bottom: 1rem;
 }
 
+.prose-custom table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.9375rem;
+}
+
+.prose-custom thead th {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.625rem 0.75rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.prose-custom tbody td {
+  color: var(--color-text-secondary);
+  padding: 0.625rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.prose-custom tbody tr:last-child td {
+  border-bottom: none;
+}
+
 .prose-custom hr {
   border-color: var(--color-border);
   margin: 2rem 0;

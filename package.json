@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "content": "tsx scripts/build-content.ts",
     "dev": "pnpm content && vite",
