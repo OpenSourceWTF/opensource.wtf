@@ -60,6 +60,15 @@ export default function Layout() {
             >
               GitHub
             </a>
+            <a
+              href="https://x.com/OpensourceWtf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
+              aria-label="OpenSourceWTF on X (opens in new tab)"
+            >
+              X
+            </a>
           </div>
         </nav>
       </header>
@@ -130,6 +139,14 @@ export default function Layout() {
                       className="hover:text-text-primary transition-colors"
                     >
                       GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://x.com/OpensourceWtf"
+                      className="hover:text-text-primary transition-colors"
+                    >
+                      X / Twitter
                     </a>
                   </li>
                   <li>

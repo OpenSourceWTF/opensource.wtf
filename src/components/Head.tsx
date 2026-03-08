@@ -42,7 +42,12 @@ export default function Head({
     setMeta("og:description", desc, "property");
     setMeta("og:url", url, "property");
     setMeta("og:type", type, "property");
-    setMeta("og:image", `${SITE}/logo.png`, "property");
+    setMeta("og:image", `${SITE}/logo-light.png`, "property");
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:site", "@OpensourceWtf");
+    setMeta("twitter:title", fullTitle);
+    setMeta("twitter:description", desc);
+    setMeta("twitter:image", `${SITE}/logo-light.png`);
 
     let canonical = document.querySelector(
       'link[rel="canonical"]',
