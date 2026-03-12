@@ -5,6 +5,7 @@
  * then generates:
  *   - src/content/posts.generated.ts  (typed post index)
  *   - public/content/blog/*.md        (raw markdown for agent access)
+ *   - public/content/blog/*.html      (pre-rendered HTML for client)
  *   - public/rss.xml                  (RSS 2.0 feed)
  *   - public/sitemap.xml              (sitemap for SEO)
  *   - public/llms.txt                 (AI agent discovery file)
@@ -13,6 +14,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { marked } from "marked";
 
 const SITE_URL = "https://opensource.wtf";
 const SITE_TITLE = "Opensource.wtf";
@@ -43,7 +45,7 @@ function findBlogDir(): string | null {
   return null;
 }
 
-function readPosts(blogDir: string): PostMeta[] {
+async function readPosts(blogDir: string): Promise<PostMeta[]> {
   const files = fs
     .readdirSync(blogDir)
     .filter((f) => f.endsWith(".md"))
@@ -53,7 +55,7 @@ function readPosts(blogDir: string): PostMeta[] {
 
   for (const file of files) {
     const raw = fs.readFileSync(path.join(blogDir, file), "utf-8");
-    const { data } = matter(raw);
+    const { data, content } = matter(raw);
 
     const slug = file.replace(/\.md$/, "");
     posts.push({
@@ -64,10 +66,18 @@ function readPosts(blogDir: string): PostMeta[] {
       tags: Array.isArray(data.tags) ? data.tags : [],
     });
 
-    // Copy to public dir for raw agent access
+    // Copy raw markdown for agent access
     fs.copyFileSync(
       path.join(blogDir, file),
       path.join(OUT_PUBLIC_BLOG, file),
+    );
+
+    // Render markdown to HTML and write alongside the .md
+    const body = content.trim().replace(/^# .+\n*/, ""); // strip leading h1
+    const html = await marked(body);
+    fs.writeFileSync(
+      path.join(OUT_PUBLIC_BLOG, `${slug}.html`),
+      html,
     );
   }
 
@@ -186,37 +196,41 @@ ${postLinks}
 
 // --- Main ---
 
-const blogDir = findBlogDir();
-if (!blogDir) {
-  console.warn(
-    "⚠ No blog content found. Checked:",
-    BLOG_SOURCES.join(", "),
-  );
-  console.warn("  Generating empty post index.");
+async function main() {
+  const blogDir = findBlogDir();
+  if (!blogDir) {
+    console.warn(
+      "⚠ No blog content found. Checked:",
+      BLOG_SOURCES.join(", "),
+    );
+    console.warn("  Generating empty post index.");
 
-  fs.mkdirSync(OUT_PUBLIC_BLOG, { recursive: true });
-  generatePostsTs([]);
-  generateRss([]);
-  generateSitemap([]);
-  generateLlmsTxt([]);
-} else {
-  console.log(`📝 Found blog content at: ${blogDir}`);
-  fs.mkdirSync(OUT_PUBLIC_BLOG, { recursive: true });
+    fs.mkdirSync(OUT_PUBLIC_BLOG, { recursive: true });
+    generatePostsTs([]);
+    generateRss([]);
+    generateSitemap([]);
+    generateLlmsTxt([]);
+  } else {
+    console.log(`📝 Found blog content at: ${blogDir}`);
+    fs.mkdirSync(OUT_PUBLIC_BLOG, { recursive: true });
 
-  const posts = readPosts(blogDir);
-  console.log(`   ${posts.length} post(s) found`);
+    const posts = await readPosts(blogDir);
+    console.log(`   ${posts.length} post(s) found`);
 
-  generatePostsTs(posts);
-  console.log("   ✓ src/content/posts.generated.ts");
+    generatePostsTs(posts);
+    console.log("   ✓ src/content/posts.generated.ts");
 
-  generateRss(posts);
-  console.log("   ✓ public/rss.xml");
+    generateRss(posts);
+    console.log("   ✓ public/rss.xml");
 
-  generateSitemap(posts);
-  console.log("   ✓ public/sitemap.xml");
+    generateSitemap(posts);
+    console.log("   ✓ public/sitemap.xml");
 
-  generateLlmsTxt(posts);
-  console.log("   ✓ public/llms.txt");
+    generateLlmsTxt(posts);
+    console.log("   ✓ public/llms.txt");
 
-  console.log("✅ Content build complete");
+    console.log("✅ Content build complete");
+  }
 }
+
+main();

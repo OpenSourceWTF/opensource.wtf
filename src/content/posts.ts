@@ -12,24 +12,14 @@ export interface BlogPost extends BlogPostMeta {
 
 export async function fetchPost(slug: string): Promise<BlogPost | null> {
   try {
-    const res = await fetch(`/content/blog/${slug}.md`);
-    if (!res.ok) return null;
-    const raw = await res.text();
-
-    // Strip frontmatter
-    const fmMatch = raw.match(/^---\n[\s\S]*?\n---\n([\s\S]*)$/);
-    let body = fmMatch ? fmMatch[1].trim() : raw;
-
-    // Strip leading h1 — we render post.title separately
-    body = body.replace(/^# .+\n*/, "");
-
     const meta = postIndex.find((p) => p.slug === slug);
     if (!meta) return null;
 
-    const { marked } = await import("marked");
-    const html = await marked(body);
+    const res = await fetch(`/content/blog/${slug}.html`);
+    if (!res.ok) return null;
+    const html = await res.text();
 
-    return { ...meta, content: body, html };
+    return { ...meta, content: "", html };
   } catch {
     return null;
   }

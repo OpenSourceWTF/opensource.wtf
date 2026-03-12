@@ -52,10 +52,6 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # Copy index.html to 404.html for SPA client-side routing
-      - name: SPA routing fallback
-        run: cp dist/index.html dist/404.html
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

@@ -7,17 +7,17 @@
   "scripts": {
     "content": "tsx scripts/build-content.ts",
     "dev": "pnpm content && vite",
-    "build": "pnpm content && tsc -b && vite build",
+    "build": "pnpm content && tsc -b && vite build && tsx scripts/generate-pages.ts",
     "preview": "vite preview"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "marked": "^17.0.4",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
+    "marked": "^17.0.4",
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

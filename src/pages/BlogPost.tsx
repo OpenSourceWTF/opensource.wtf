@@ -39,31 +39,6 @@ export default function BlogPostPage() {
     );
   }
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.date,
-    url: `https://opensource.wtf/blog/${post.slug}`,
-    image: "https://opensource.wtf/logo-light.png",
-    author: {
-      "@type": "Organization",
-      name: "OpenSourceWTF",
-      url: "https://opensource.wtf",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "OpenSourceWTF",
-      url: "https://opensource.wtf",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://opensource.wtf/logo-light.png",
-      },
-    },
-    keywords: post.tags.join(", "),
-  };
-
   return (
     <article className="py-16" aria-label={post.title}>
       <Head
@@ -71,10 +46,6 @@ export default function BlogPostPage() {
         description={post.excerpt}
         path={`/blog/${post.slug}`}
         type="article"
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="max-w-3xl mx-auto px-6">
         <Link
