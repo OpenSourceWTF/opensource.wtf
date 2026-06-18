@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { projects } from "../content/projects";
 import { postIndex as posts } from "../content/posts";
 import Head from "../components/Head";
+import PostCover from "../components/PostCover";
 
 export default function Home() {
   return (
@@ -17,8 +18,7 @@ export default function Home() {
                 <span className="text-brand">open source</span>
               </h1>
               <p className="text-lg md:text-xl text-text-secondary leading-relaxed mb-8">
-                Building things in the open, writing about it, and the domain
-                was just there.
+                Building fun stuff for everyone.
               </p>
               <div className="flex gap-4">
                 <Link
@@ -116,21 +116,30 @@ export default function Home() {
               <Link
                 key={post.slug}
                 to={`/blog/${post.slug}`}
-                className="block group p-6 rounded-xl border border-border bg-surface-raised hover:border-brand/30 transition-all"
+                className="group flex flex-col gap-5 rounded-xl border border-border bg-surface-raised p-4 transition-all hover:border-brand/30 sm:flex-row"
               >
-                <div className="flex items-center gap-3 text-sm text-text-muted mb-2">
-                  <time>{post.date}</time>
-                  <span>&middot;</span>
-                  <div className="flex gap-2">
-                    {post.tags.map((tag) => (
-                      <span key={tag}>#{tag}</span>
-                    ))}
+                <PostCover
+                  slug={post.slug}
+                  title={post.title}
+                  tags={post.tags}
+                  image={post.image}
+                  className="aspect-[16/10] w-full shrink-0 rounded-lg sm:aspect-auto sm:h-auto sm:w-48"
+                />
+                <div className="min-w-0">
+                  <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-text-muted">
+                    <time>{post.date}</time>
+                    <span>&middot;</span>
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.map((tag) => (
+                        <span key={tag}>#{tag}</span>
+                      ))}
+                    </div>
                   </div>
+                  <h3 className="mb-2 text-xl font-semibold transition-colors group-hover:text-brand">
+                    {post.title}
+                  </h3>
+                  <p className="text-text-secondary">{post.excerpt}</p>
                 </div>
-                <h3 className="text-xl font-semibold group-hover:text-brand transition-colors mb-2">
-                  {post.title}
-                </h3>
-                <p className="text-text-secondary">{post.excerpt}</p>
               </Link>
             ))}
           </div>

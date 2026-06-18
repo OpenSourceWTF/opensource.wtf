@@ -1,16 +1,96 @@
 @import "tailwindcss";
 
+/* Class-based dark mode: <html class="dark"> is toggled by the theme script. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Theming system
+  --------------
+  Layer 1 — primitives: the raw palette (fixed hues). Never used directly in JSX.
+  Layer 2 — semantic:   role tokens (surface / text / brand / border) the UI consumes.
+                        Light is the default (:root); `.dark` overrides the same names.
+  Layer 3 — Tailwind:   @theme maps semantic tokens to color utilities, so flipping a
+                        single class on <html> re-themes the entire site.
+
+  Palette: "Indigo dusk" — cool slate surfaces with a soft indigo-violet accent.
+*/
+
+/* ── Layer 1: primitives ─────────────────────────────────────────────────── */
+:root {
+  /* Indigo accent ramp */
+  --indigo-300: #a394f9;
+  --indigo-400: #8b7cf6;
+  --indigo-500: #7c6cf0;
+  --indigo-600: #6f5fe0;
+  --indigo-700: #5a49d0;
+  --indigo-800: #4b3cb8;
+
+  /* Cool slate neutral ramp (faint violet cast) */
+  --slate-0:   #ffffff;
+  --slate-50:  #f6f6fb;
+  --slate-100: #eeeef6;
+  --slate-200: #e3e3ee;
+  --slate-500: #8a8a9e;
+  --slate-600: #54546a;
+  --slate-750: #272740;
+  --slate-800: #202032;
+  --slate-850: #181826;
+  --slate-950: #101019;
+  --slate-ink: #1b1b2b;
+}
+
+/* ── Layer 2: semantic tokens — LIGHT (default) ──────────────────────────── */
+:root {
+  --brand:        var(--indigo-700);   /* darker indigo for contrast on light */
+  --brand-strong: var(--indigo-800);   /* pressed / button hover */
+  --brand-soft:   var(--indigo-600);   /* link hover */
+  --on-brand:     #ffffff;
+
+  --surface:         var(--slate-50);
+  --surface-raised:  var(--slate-0);
+  --surface-overlay: var(--slate-100);
+
+  --text-primary:   var(--slate-ink);
+  --text-secondary: var(--slate-600);
+  --text-muted:     var(--slate-500);
+
+  --border: var(--slate-200);
+
+  color-scheme: light;
+}
+
+/* ── Layer 2: semantic tokens — DARK ─────────────────────────────────────── */
+.dark {
+  --brand:        var(--indigo-400);   /* lighter indigo for contrast on dark */
+  --brand-strong: var(--indigo-600);   /* button hover */
+  --brand-soft:   var(--indigo-300);   /* link hover */
+  --on-brand:     #ffffff;
+
+  --surface:         var(--slate-950);
+  --surface-raised:  var(--slate-850);
+  --surface-overlay: var(--slate-800);
+
+  --text-primary:   #eceaf2;
+  --text-secondary: #9b98ad;
+  --text-muted:     #6c6a80;
+
+  --border: var(--slate-750);
+
+  color-scheme: dark;
+}
+
+/* ── Layer 3: expose semantic tokens as Tailwind color utilities ─────────── */
 @theme {
-  --color-brand: #0052ff;
-  --color-brand-dark: #003db8;
-  --color-brand-light: #4d8aff;
-  --color-surface: #0a0a0a;
-  --color-surface-raised: #141414;
-  --color-surface-overlay: #1e1e1e;
-  --color-text-primary: #f5f5f5;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #666;
-  --color-border: #2a2a2a;
+  --color-brand:           var(--brand);
+  --color-brand-dark:      var(--brand-strong);
+  --color-brand-light:     var(--brand-soft);
+  --color-surface:         var(--surface);
+  --color-surface-raised:  var(--surface-raised);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-text-primary:    var(--text-primary);
+  --color-text-secondary:  var(--text-secondary);
+  --color-text-muted:      var(--text-muted);
+  --color-border:          var(--border);
 }
 
 html {
@@ -18,14 +98,14 @@ html {
 }
 
 body {
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
+  background-color: var(--surface);
+  color: var(--text-primary);
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
 ::selection {
-  background-color: var(--color-brand);
-  color: white;
+  background-color: var(--brand);
+  color: var(--on-brand);
 }
 
 /* Prose styles for rendered markdown */

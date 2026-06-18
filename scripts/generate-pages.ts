@@ -134,13 +134,6 @@ const staticPages: PageMeta[] = [
       "Thoughts on open source, AI agents, and building in the open.",
     type: "website",
   },
-  {
-    path: "/about",
-    title: "About",
-    description:
-      "About OpenSourceWTF — building open source tools for the AI agent ecosystem.",
-    type: "website",
-  },
 ];
 
 for (const page of staticPages) {

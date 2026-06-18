@@ -1,10 +1,10 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/projects", label: "Projects" },
   { to: "/blog", label: "Blog" },
-  { to: "/about", label: "About" },
 ];
 
 export default function Layout() {
@@ -69,6 +69,7 @@ export default function Layout() {
             >
               X
             </a>
+            <ThemeToggle />
           </div>
         </nav>
       </header>
@@ -155,14 +156,6 @@ export default function Layout() {
                       className="hover:text-text-primary transition-colors"
                     >
                       Blog
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/about"
-                      className="hover:text-text-primary transition-colors"
-                    >
-                      About
                     </Link>
                   </li>
                 </ul>

@@ -9,6 +9,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: "Leaderboard",
+    tagline: "The most load-bearing open-source packages, ranked",
+    description:
+      "A live leaderboard of the open-source packages everything depends on, ranked by dependents, influence, and criticality. See what's quietly holding the internet up.",
+    logo: "/leaderboard-logo.svg",
+    repo: "https://leaderboard.opensource.wtf",
+    tags: ["Leaderboard", "Supply-chain", "Open data"],
+  },
+  {
     name: "Dojo",
     tagline: "Skill registry for AI coding agents",
     description:
