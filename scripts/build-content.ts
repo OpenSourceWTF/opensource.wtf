@@ -36,6 +36,7 @@ interface PostMeta {
   date: string;
   excerpt: string;
   tags: string[];
+  image?: string;
 }
 
 function findBlogDir(): string | null {
@@ -64,6 +65,7 @@ async function readPosts(blogDir: string): Promise<PostMeta[]> {
       date: data.date || new Date().toISOString().split("T")[0],
       excerpt: data.excerpt || "",
       tags: Array.isArray(data.tags) ? data.tags : [],
+      ...(data.image ? { image: String(data.image) } : {}),
     });
 
     // Copy raw markdown for agent access
@@ -94,6 +96,7 @@ export interface BlogPostMeta {
   date: string;
   excerpt: string;
   tags: string[];
+  image?: string;
 }
 
 export const postIndex: BlogPostMeta[] = ${JSON.stringify(posts, null, 2)};
@@ -140,7 +143,7 @@ ${items}
 }
 
 function generateSitemap(posts: PostMeta[]): void {
-  const staticPages = ["", "/projects", "/blog", "/about"];
+  const staticPages = ["", "/projects", "/blog"];
   const blogPages = posts.map((p) => `/blog/${p.slug}`);
   const allPages = [...staticPages, ...blogPages];
 
