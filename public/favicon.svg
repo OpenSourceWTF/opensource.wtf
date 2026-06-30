@@ -1,6 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="269 215 528 577">
-  <style>text { font-family: "Courier New", "Courier", "Liberation Mono", monospace; font-size: 48px; fill: #7c6cf0; }</style>
-  <g>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="235 215 600 600">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#2a2a44"/>
+      <stop offset="48%" stop-color="#1a1a28"/>
+      <stop offset="100%" stop-color="#101019"/>
+    </radialGradient>
+    <filter id="glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>text { font-family: "Menlo", "Consolas", "Courier New", "Courier", monospace; font-size: 48px; font-weight: 700; fill: #a394f9; }</style>
+  </defs>
+  <rect x="235" y="215" width="600" height="600" rx="132" fill="url(#bg)"/>
+  <g filter="url(#glow)">
     <text x="360.7" y="282.4">..:------::.</text>
     <text x="274.3" y="344.8">.-*#%@@@@@@@@%#*-.</text>
     <text x="274.3" y="407.2">:=*##%%%%%%%%%#*=:</text>
