@@ -3,6 +3,18 @@ import { useEffect, useState } from "react";
 import { fetchPost, type BlogPost } from "../content/posts";
 import Head from "../components/Head";
 
+// Format an ISO date (YYYY-MM-DD) as "June 29, 2026" without timezone drift
+// (constructing from parts keeps it on the intended calendar day).
+function formatDate(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  if (!y || !m || !d) return iso;
+  return new Date(y, m - 1, d).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPost | null>(null);
@@ -55,25 +67,34 @@ export default function BlogPostPage() {
           &larr; Back to blog
         </Link>
 
-        <div className="flex items-center gap-3 text-sm text-text-muted mb-4">
-          <time dateTime={post.date}>{post.date}</time>
-          <span>&middot;</span>
-          <div className="flex gap-2">
-            {post.tags.map((tag) => (
-              <span key={tag}>#{tag}</span>
-            ))}
-          </div>
-          <span>&middot;</span>
+        {/* Masthead: publish date and the raw-source link anchor opposite ends,
+            separated from the title by a hairline rule. */}
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-border pb-3 mb-6 font-mono text-xs tracking-wide text-text-muted">
+          <time dateTime={post.date} className="whitespace-nowrap">
+            {formatDate(post.date)}
+          </time>
           <a
             href={`/content/blog/${post.slug}.md`}
-            className="text-brand hover:text-brand-light transition-colors"
+            className="inline-flex items-center gap-1 whitespace-nowrap text-brand transition-colors hover:text-brand-light"
             aria-label="View raw markdown source"
           >
-            view .md
+            view&nbsp;.md <span aria-hidden="true">&#8599;</span>
           </a>
         </div>
 
-        <h1 className="text-4xl font-bold mb-8">{post.title}</h1>
+        <h1 className="text-4xl font-bold tracking-tight mb-5">{post.title}</h1>
+
+        {/* Topics: chips give the tag list room to wrap instead of squishing. */}
+        <ul className="flex flex-wrap gap-2 mb-12 p-0 m-0 list-none">
+          {post.tags.map((tag) => (
+            <li key={tag}>
+              <span className="inline-flex items-center whitespace-nowrap rounded-full border border-border bg-surface-overlay px-3 py-1 text-xs text-text-secondary">
+                <span className="mr-0.5 text-text-muted">#</span>
+                {tag}
+              </span>
+            </li>
+          ))}
+        </ul>
 
         <div
           className="prose-custom"
