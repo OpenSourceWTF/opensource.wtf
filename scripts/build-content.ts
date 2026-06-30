@@ -46,7 +46,27 @@ function findBlogDir(): string | null {
   return null;
 }
 
+// Copy post image assets (blog/posts/images/*) alongside the rendered markdown so
+// posts can reference them at /content/blog/images/<file>. The build otherwise only
+// emits .md/.html, so without this any screenshot in a post would 404.
+function copyPostImages(blogDir: string): void {
+  const srcImages = path.join(blogDir, "images");
+  if (!fs.existsSync(srcImages)) return;
+  const dstImages = path.join(OUT_PUBLIC_BLOG, "images");
+  fs.mkdirSync(dstImages, { recursive: true });
+  let n = 0;
+  for (const file of fs.readdirSync(srcImages)) {
+    const src = path.join(srcImages, file);
+    if (!fs.statSync(src).isFile()) continue;
+    fs.copyFileSync(src, path.join(dstImages, file));
+    n++;
+  }
+  if (n) console.log(`   ✓ public/content/blog/images (${n} asset${n === 1 ? "" : "s"})`);
+}
+
 async function readPosts(blogDir: string): Promise<PostMeta[]> {
+  copyPostImages(blogDir);
+
   const files = fs
     .readdirSync(blogDir)
     .filter((f) => f.endsWith(".md"))
