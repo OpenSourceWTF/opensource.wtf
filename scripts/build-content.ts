@@ -64,6 +64,19 @@ function copyPostImages(blogDir: string): void {
   if (n) console.log(`   ✓ public/content/blog/images (${n} asset${n === 1 ? "" : "s"})`);
 }
 
+// Posts reference images relatively (images/<file>) so they also render in the
+// raw markdown on GitHub, where paths resolve against posts/. On the site the
+// post HTML is served under /blog/<slug>, so rewrite those refs to the absolute
+// /content/blog/images/<file> that copyPostImages() publishes. External URLs and
+// already-absolute paths are left untouched. (The raw .md copy keeps the relative
+// form: served at /content/blog/<slug>.md, images/<file> already resolves right.)
+function rewriteImagePaths(markdown: string): string {
+  return markdown.replace(
+    /(!\[[^\]]*\]\()(?:\.\/)?images\//g,
+    "$1/content/blog/images/",
+  );
+}
+
 async function readPosts(blogDir: string): Promise<PostMeta[]> {
   copyPostImages(blogDir);
 
@@ -94,8 +107,10 @@ async function readPosts(blogDir: string): Promise<PostMeta[]> {
       path.join(OUT_PUBLIC_BLOG, file),
     );
 
-    // Render markdown to HTML and write alongside the .md
-    const body = content.trim().replace(/^# .+\n*/, ""); // strip leading h1
+    // Render markdown to HTML and write alongside the .md. Strip the leading h1,
+    // then rewrite relative image paths (images/<file>) to the site-absolute
+    // /content/blog/images/<file> the rendered page needs.
+    const body = rewriteImagePaths(content.trim().replace(/^# .+\n*/, ""));
     const html = await marked(body);
     fs.writeFileSync(
       path.join(OUT_PUBLIC_BLOG, `${slug}.html`),
