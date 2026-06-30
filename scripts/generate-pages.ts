@@ -18,6 +18,7 @@ interface PageMeta {
   title: string;
   description: string;
   type: "website" | "article";
+  image?: string; // absolute URL for og:image / twitter:image; falls back to the site default
   jsonLd?: object;
 }
 
@@ -27,6 +28,7 @@ interface PostMeta {
   date: string;
   excerpt: string;
   tags: string[];
+  image?: string; // optional per-post social image (frontmatter `image:`)
 }
 
 function loadPostIndex(): PostMeta[] {
@@ -74,6 +76,18 @@ function replaceMeta(template: string, meta: PageMeta): string {
     /<meta property="og:url" content="[^"]*"/,
     `<meta property="og:url" content="${url}"`,
   );
+
+  // Per-page social image (og:image + twitter:image); leaves the site default when unset.
+  if (meta.image) {
+    html = html.replace(
+      /<meta property="og:image" content="[^"]*"/,
+      `<meta property="og:image" content="${escapeAttr(meta.image)}"`,
+    );
+    html = html.replace(
+      /<meta name="twitter:image" content="[^"]*"/,
+      `<meta name="twitter:image" content="${escapeAttr(meta.image)}"`,
+    );
+  }
 
   // Replace Twitter Card tags
   html = html.replace(
@@ -145,11 +159,16 @@ console.log(`   ✓ ${staticPages.length} static pages`);
 const posts = loadPostIndex();
 
 for (const post of posts) {
+  // Per-post social image: absolutize a root-relative frontmatter `image:`, else the site logo.
+  const postImage = post.image
+    ? (post.image.startsWith("http") ? post.image : `${SITE_URL}${post.image}`)
+    : `${SITE_URL}/logo-light.png`;
   writePage(template, {
     path: `/blog/${post.slug}`,
     title: post.title,
     description: post.excerpt,
     type: "article",
+    image: postImage,
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -157,7 +176,7 @@ for (const post of posts) {
       description: post.excerpt,
       datePublished: post.date,
       url: `${SITE_URL}/blog/${post.slug}`,
-      image: `${SITE_URL}/logo-light.png`,
+      image: postImage,
       author: {
         "@type": "Organization",
         name: "OpenSourceWTF",
