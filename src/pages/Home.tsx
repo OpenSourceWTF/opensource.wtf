@@ -3,6 +3,7 @@ import { projects } from "../content/projects";
 import { postIndex as posts } from "../content/posts";
 import Head from "../components/Head";
 import PostCover from "../components/PostCover";
+import ProjectCard from "../components/ProjectCard";
 
 export default function Home() {
   return (
@@ -60,40 +61,11 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {projects.map((project) => (
-              <a
+              <ProjectCard
                 key={project.name}
-                href={project.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group p-6 rounded-xl border border-border bg-surface-raised hover:border-brand/30 transition-all"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <img
-                    src={project.logo}
-                    alt=""
-                    className="h-8 w-8 rounded"
-                  />
-                  <h3 className="font-semibold text-lg group-hover:text-brand transition-colors">
-                    {project.name}
-                  </h3>
-                </div>
-                <p className="text-sm text-brand/80 font-medium mb-2">
-                  {project.tagline}
-                </p>
-                <p className="text-sm text-text-secondary leading-relaxed">
-                  {project.description}
-                </p>
-                <div className="flex gap-2 mt-4">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-1 rounded-full bg-surface-overlay text-text-muted"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </a>
+                project={project}
+                variant="compact"
+              />
             ))}
           </div>
         </div>

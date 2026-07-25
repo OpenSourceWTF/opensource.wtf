@@ -36,7 +36,7 @@
 
 **Security flag:** `none`
 
-- [ ] **Step 1: Generate the profiler thumbnail**
+- [x] **Step 1: Generate the profiler thumbnail**
 
 Use the built-in image generator in edit-free generation mode with:
 
@@ -53,7 +53,7 @@ Avoid: tiny labels, dense charts, photorealism, gradients that reduce contrast
 
 Save the selected output to `public/mlx-profiler-thumbnail.png`.
 
-- [ ] **Step 2: Generate the visualizer thumbnail**
+- [x] **Step 2: Generate the visualizer thumbnail**
 
 Use the built-in image generator in edit-free generation mode with:
 
@@ -70,7 +70,7 @@ Avoid: tiny labels, dense charts, photorealism, gradients that reduce contrast
 
 Save the selected output to `public/metal-dispatch-viz-thumbnail.png`.
 
-- [ ] **Step 3: Validate both image assets**
+- [x] **Step 3: Validate both image assets**
 
 Run:
 
@@ -80,7 +80,7 @@ file public/mlx-profiler-thumbnail.png public/metal-dispatch-viz-thumbnail.png
 
 Expected: both files are PNG raster images with square dimensions.
 
-- [ ] **Step 4: Inspect both at full size and thumbnail size**
+- [x] **Step 4: Inspect both at full size and thumbnail size**
 
 Open both assets with the image viewer and confirm:
 
@@ -101,7 +101,7 @@ Open both assets with the image viewer and confirm:
 
 **Does NOT cover:** Optional source actions render only when `sourceLinks` is present; it does not infer repository links from a project name or primary URL.
 
-- [ ] **Step 1: Add the focused test command**
+- [x] **Step 1: Add the focused test command**
 
 Add to `package.json` scripts:
 
@@ -109,7 +109,7 @@ Add to `package.json` scripts:
 "test": "tsx --test test/**/*.test.tsx"
 ```
 
-- [ ] **Step 2: Write the failing content test**
+- [x] **Step 2: Write the failing content test**
 
 Create `test/project-links.test.tsx` with:
 
@@ -141,7 +141,7 @@ test("MLX Profiler exposes the hosted workbench and both source repositories", (
 });
 ```
 
-- [ ] **Step 3: Run the test to verify it fails**
+- [x] **Step 3: Run the test to verify it fails**
 
 Run:
 
@@ -151,7 +151,7 @@ pnpm test
 
 Expected: FAIL because `MLX Profiler` does not exist.
 
-- [ ] **Step 4: Implement the action contract and project entry**
+- [x] **Step 4: Implement the action contract and project entry**
 
 In `src/content/projects.ts`, define:
 
@@ -208,7 +208,7 @@ Append:
 }
 ```
 
-- [ ] **Step 5: Run the focused test**
+- [x] **Step 5: Run the focused test**
 
 Run:
 
@@ -231,7 +231,7 @@ Expected: PASS.
 
 **Does NOT cover:** The compact and expanded variants change layout only; they do not change link destinations or hide any action.
 
-- [ ] **Step 1: Write failing markup tests**
+- [x] **Step 1: Write failing markup tests**
 
 Append to `test/project-links.test.tsx`:
 
@@ -255,7 +255,7 @@ test("project card renders independent hosted and source links without nested an
 });
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run:
 
@@ -265,7 +265,7 @@ pnpm test
 
 Expected: FAIL because `ProjectCard.tsx` does not exist.
 
-- [ ] **Step 3: Implement the shared card**
+- [x] **Step 3: Implement the shared card**
 
 Create `src/components/ProjectCard.tsx` with a typed `project` prop and
 `"compact" | "expanded"` variant. Render:
@@ -280,7 +280,7 @@ Create `src/components/ProjectCard.tsx` with a typed `project` prop and
   `focus-visible` treatment;
 - minimum `min-h-11` action height.
 
-- [ ] **Step 4: Replace duplicate page card markup**
+- [x] **Step 4: Replace duplicate page card markup**
 
 In `src/pages/Home.tsx`, import `ProjectCard` and render:
 
@@ -298,7 +298,7 @@ In `src/pages/Projects.tsx`, render:
 ))}
 ```
 
-- [ ] **Step 5: Run focused tests**
+- [x] **Step 5: Run focused tests**
 
 Run:
 
@@ -316,7 +316,7 @@ Expected: PASS with both content and markup contracts green.
 
 **Security flag:** `none`
 
-- [ ] **Step 1: Run formatting and diff checks**
+- [x] **Step 1: Run formatting and diff checks**
 
 Run:
 
@@ -326,7 +326,7 @@ git diff --check
 
 Expected: no output and exit code 0.
 
-- [ ] **Step 2: Run the focused tests**
+- [x] **Step 2: Run the focused tests**
 
 Run:
 
@@ -336,7 +336,7 @@ pnpm test
 
 Expected: all tests pass.
 
-- [ ] **Step 3: Run the commit-gate build**
+- [x] **Step 3: Run the commit-gate build**
 
 Run:
 
@@ -347,7 +347,7 @@ pnpm build
 Expected: content generation, TypeScript, Vite, and static page generation all
 complete successfully.
 
-- [ ] **Step 4: Inspect the built links**
+- [x] **Step 4: Inspect the built links**
 
 Run:
 
@@ -357,7 +357,7 @@ rg -n "mlx-profiler\\.opensource\\.wtf|OpenSourceWTF/mlx-profiler|OpenSourceWTF/
 
 Expected: the hosted and both source URLs appear in built output.
 
-- [ ] **Step 5: Review repository state**
+- [x] **Step 5: Review repository state**
 
 Run:
 
