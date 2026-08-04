@@ -19,10 +19,22 @@ function renderPage(page: React.ReactNode) {
   );
 }
 
-test("every showcased project has useful catalog copy", () => {
-  for (const project of projects) {
-    assert.ok(project.tagline.trim().length > 0, project.name);
-    assert.ok(project.description.trim().length > 0, project.name);
+test("every showcased project has a complete catalog record", () => {
+  for (const [index, project] of projects.entries()) {
+    const context = project.name || `project ${index}`;
+
+    assert.ok(project.name.trim().length > 0, `${context}: name`);
+    assert.ok(project.tagline.trim().length > 0, `${context}: tagline`);
+    assert.ok(project.description.trim().length > 0, `${context}: description`);
+    assert.ok(project.logo.trim().length > 0, `${context}: logo`);
+    assert.ok(
+      project.primaryAction.href.trim().length > 0,
+      `${context}: primary action URL`,
+    );
+    assert.ok(project.tags.length > 0, `${context}: tags`);
+    for (const [tagIndex, tag] of project.tags.entries()) {
+      assert.ok(tag.trim().length > 0, `${context}: tag ${tagIndex}`);
+    }
   }
 });
 
@@ -39,13 +51,16 @@ test("MTPLX-MoE is pinned to the synchronized fork release exactly once", () => 
 test("Home and Projects expose the pinned release and hardened repository link", () => {
   for (const page of [<Home />, <Projects />]) {
     const markup = renderPage(page);
+    const projectCard = [...markup.matchAll(/<article\b[\s\S]*?<\/article>/g)]
+      .map(([article]) => article)
+      .find((article) => article.includes(MTPLX_NAME));
 
-    assert.match(markup, new RegExp(MTPLX_NAME));
-    assert.match(markup, /Pinned/);
-    assert.match(markup, /2\.5\.2\+opensourcewtf\.moe/);
-    assert.ok(markup.includes(MTPLX_DESCRIPTION));
+    assert.ok(projectCard, "MTPLX-MoE project card should render");
+    assert.match(projectCard, />Pinned</);
+    assert.ok(projectCard.includes(MTPLX_VERSION));
+    assert.ok(projectCard.includes(MTPLX_DESCRIPTION));
 
-    const repositoryAnchor = markup.match(
+    const repositoryAnchor = projectCard.match(
       new RegExp(`<a\\b([^>]*)href="${MTPLX_REPOSITORY}"([^>]*)>`),
     );
     assert.ok(repositoryAnchor);
