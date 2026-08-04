@@ -13,6 +13,20 @@ export default function ProjectCard({
   variant,
 }: ProjectCardProps) {
   const expanded = variant === "expanded";
+  const releaseMetadata = project.pinned || project.version ? (
+    <div className="flex min-w-0 flex-wrap items-center gap-2">
+      {project.pinned ? (
+        <span className="inline-flex rounded-full border border-brand/40 px-2 py-1 text-xs font-medium text-brand">
+          Pinned
+        </span>
+      ) : null}
+      {project.version ? (
+        <span className="max-w-full break-all rounded bg-surface-overlay px-2 py-1 font-mono text-xs tabular-nums text-text-secondary">
+          {project.version}
+        </span>
+      ) : null}
+    </div>
+  ) : null;
 
   return (
     <article
@@ -31,15 +45,21 @@ export default function ProjectCard({
 
       <div className="min-w-0 flex-1">
         {expanded ? (
-          <h2 className="mb-1 text-xl font-semibold">{project.name}</h2>
+          <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+            <h3 className="text-xl font-semibold">{project.name}</h3>
+            {releaseMetadata}
+          </div>
         ) : (
-          <div className="mb-4 flex items-center gap-3">
+          <div className="mb-4 flex items-start gap-3">
             <img
               src={project.logo}
               alt=""
               className="h-8 w-8 shrink-0 rounded object-cover"
             />
-            <h3 className="text-lg font-semibold">{project.name}</h3>
+            <div className="min-w-0">
+              <h3 className="mb-2 text-lg font-semibold">{project.name}</h3>
+              {releaseMetadata}
+            </div>
           </div>
         )}
         <p className="mb-2 text-sm font-medium text-brand/80">
