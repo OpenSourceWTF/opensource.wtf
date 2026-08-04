@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { projects } from "../content/projects";
+import { pinnedProjects, regularProjects } from "../content/projects";
 import { postIndex as posts } from "../content/posts";
 import Head from "../components/Head";
 import PostCover from "../components/PostCover";
@@ -60,7 +60,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {projects.map((project) => (
+            {[...pinnedProjects, ...regularProjects].map((project) => (
               <ProjectCard
                 key={project.name}
                 project={project}

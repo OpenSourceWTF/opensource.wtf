@@ -6,6 +6,8 @@ export interface ProjectAction {
 
 export interface Project {
   name: string;
+  version?: string;
+  pinned?: boolean;
   tagline: string;
   description: string;
   logo: string;
@@ -75,4 +77,21 @@ export const projects: Project[] = [
     ],
     tags: ["MLX", "Metal", "Profiling"],
   },
+  {
+    name: "MTPLX-MoE",
+    version: "2.5.2+opensourcewtf.moe",
+    pinned: true,
+    tagline: "Native-MTP inference with SSD-streamed MoE on Apple Silicon",
+    description:
+      "Our MTPLX fork keeps native-MTP speculative decoding while adding SSD-streamed expert serving and tested paths for large MoE models such as Hy3, GLM-5.2, and Kimi K3.",
+    logo: "/mtplx-moe-icon.png",
+    primaryAction: {
+      label: "View repository",
+      href: "https://github.com/OpenSourceWTF/mtplx-moe",
+    },
+    tags: ["Apple Silicon", "MLX", "MTP", "MoE"],
+  },
 ];
+
+export const pinnedProjects = projects.filter((project) => project.pinned);
+export const regularProjects = projects.filter((project) => !project.pinned);

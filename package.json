@@ -9,7 +9,7 @@
     "dev": "pnpm content && vite",
     "build": "pnpm content && tsc -b && vite build && tsx scripts/generate-pages.ts",
     "preview": "vite preview",
-    "test": "tsx --test test/**/*.test.tsx"
+    "test": "tsx --test test/*.test.tsx"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
